@@ -4,6 +4,11 @@ All notable changes to this project are documented here. This project follows [S
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-10-31
+
+### Fixed
+- Downloads and license badges in the README no longer show "not found". GitHub had cached the early Packagist lookup; cache-busting query strings force a fresh fetch.
+
 ## [1.0.1] - 2026-10-31
 
 ### Added
