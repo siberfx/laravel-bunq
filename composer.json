@@ -1,0 +1,69 @@
+{
+    "name": "siberfx/laravel-bunq",
+    "description": "bunq payment gateway for Laravel 13+: payment requests, payouts, webhooks, events and a Cashier-style billable trait.",
+    "keywords": [
+        "laravel",
+        "bunq",
+        "payments",
+        "payment-gateway",
+        "cashier",
+        "billing",
+        "webhooks",
+        "sepa"
+    ],
+    "homepage": "https://github.com/siberfx/laravel-bunq",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "SiberFX",
+            "email": "info@siberfx.com",
+            "homepage": "https://siberfx.com"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "bunq/sdk_php": "^1.28",
+        "illuminate/console": "^13.0",
+        "illuminate/contracts": "^13.0",
+        "illuminate/database": "^13.0",
+        "illuminate/events": "^13.0",
+        "illuminate/http": "^13.0",
+        "illuminate/routing": "^13.0",
+        "illuminate/support": "^13.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^11.0",
+        "phpunit/phpunit": "^12.0"
+    },
+    "suggest": {
+        "laravel/cashier": "Use Cashier (Stripe/Paddle) and bunq side by side on the same billable model."
+    },
+    "autoload": {
+        "psr-4": {
+            "Siberfx\\LaravelBunq\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Siberfx\\LaravelBunq\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Siberfx\\LaravelBunq\\BunqServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "bunq/sdk_php": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

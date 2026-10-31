@@ -1,0 +1,10 @@
+/vendor
+/.phpunit.cache
+/.phpunit.result.cache
+composer.lock
+.env
+bunq.conf
+.DS_Store
+.claude
+.cursor
+.idea/*
