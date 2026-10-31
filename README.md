@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/siberfx/laravel-bunq.svg?style=flat-square&logo=packagist)](https://packagist.org/packages/siberfx/laravel-bunq)
 [![Total Downloads](https://img.shields.io/packagist/dt/siberfx/laravel-bunq.svg?style=flat-square)](https://packagist.org/packages/siberfx/laravel-bunq)
-[![PHP Version](https://img.shields.io/packagist/php-v/siberfx/laravel-bunq.svg?style=flat-square&logo=php)](https://packagist.org/packages/siberfx/laravel-bunq)
+[![PHP Version](https://img.shields.io/packagist/dependency-v/siberfx/laravel-bunq/php?style=flat-square&logo=php)](https://packagist.org/packages/siberfx/laravel-bunq)
 [![Laravel 13](https://img.shields.io/badge/Laravel-13.x-FF2D20?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
 [![Tests](https://img.shields.io/github/actions/workflow/status/siberfx/laravel-bunq/tests.yml?branch=main&style=flat-square&label=tests&logo=github)](https://github.com/siberfx/laravel-bunq/actions/workflows/tests.yml)
 [![Cashier Compatible](https://img.shields.io/badge/Cashier-compatible-635BFF?style=flat-square)](#cashier-compatibility)
@@ -23,6 +23,56 @@ It is built on the official [`bunq/sdk_php`](https://github.com/bunq/sdk_php) an
 - **Session management**: the SDK session is restored from disk and refreshed automatically.
 - **Testable**: the gateway is an interface. Bind a fake in your tests and nothing touches the network.
 - **Sandbox first**: `php artisan bunq:install` creates a sandbox user and lists your accounts.
+
+## Use cases
+
+**Invoice payment for a SaaS plan.** A customer upgrades and is asked to pay by bunq. The plan activates only once bunq confirms the payment.
+
+```php
+$transaction = $user->bunqCharge(Money::fromDecimal('49.00'), 'Pro plan, November', reference: 'plan-pro-2026-11');
+
+// Later, in your webhook listener:
+if ($event->transaction->isPaid()) {
+    $event->transaction->billable->activateSubscription();
+}
+```
+
+**Refunding an order.** A refund goes to the buyer's IBAN. Your app records it in `bunq_transactions` next to the original charge.
+
+```php
+$seller->bunqPayout(
+    Money::fromDecimal('18.90'),
+    Counterparty::iban($buyer->iban, $buyer->name),
+    'Refund for order 1042',
+);
+```
+
+**Paying affiliates or partners by email.** Commissions go to anyone with a bunq account, without collecting their bank details first.
+
+```php
+$affiliate->bunqPayout(
+    Money::fromDecimal('12.00'),
+    Counterparty::email($affiliate->email),
+    'Commission, October',
+);
+```
+
+**Expiring unpaid requests.** A scheduled job cancels requests that the customer never accepted, so they stop appearing in the customer's bunq app.
+
+```php
+use Siberfx\LaravelBunq\Contracts\PaymentGateway;
+use Siberfx\LaravelBunq\Models\BunqTransaction;
+
+$gateway = app(PaymentGateway::class);
+
+BunqTransaction::query()
+    ->where('kind', 'request')
+    ->where('status', 'pending')
+    ->where('created_at', '<', now()->subDays(7))
+    ->each(fn ($transaction) => $gateway->cancelRequest($transaction->remote_id));
+```
+
+**Hybrid billing with Cashier.** Subscriptions stay on Stripe through Cashier, while one-off add-ons are collected by bunq. See [Cashier compatibility](#cashier-compatibility).
 
 ## Requirements
 

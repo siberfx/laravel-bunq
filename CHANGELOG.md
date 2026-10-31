@@ -4,6 +4,14 @@ All notable changes to this project are documented here. This project follows [S
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-31
+
+### Added
+- Use cases section in the README: SaaS invoice payment, order refunds, affiliate payouts, expiring unpaid requests and hybrid billing with Cashier.
+
+### Fixed
+- PHP version badge in the README now uses the Packagist dependency badge endpoint, since the old `php-v` endpoint no longer resolves.
+
 ## [1.0.0] - 2026-10-31
 
 ### Added
