@@ -1,13 +1,13 @@
 # Laravel bunq
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/siberfx/laravel-bunq.svg?style=flat-square&logo=packagist)](https://packagist.org/packages/siberfx/laravel-bunq)
-[![Total Downloads](https://img.shields.io/packagist/dt/siberfx/laravel-bunq.svg?style=flat-square)](https://packagist.org/packages/siberfx/laravel-bunq)
+[![Total Downloads](https://img.shields.io/packagist/dt/siberfx/laravel-bunq.svg?style=flat-square&v=2)](https://packagist.org/packages/siberfx/laravel-bunq)
 [![PHP Version](https://img.shields.io/packagist/dependency-v/siberfx/laravel-bunq/php?style=flat-square&logo=php)](https://packagist.org/packages/siberfx/laravel-bunq)
 [![Laravel 13](https://img.shields.io/badge/Laravel-13.x-FF2D20?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
 [![Tests](https://img.shields.io/github/actions/workflow/status/siberfx/laravel-bunq/tests.yml?branch=main&style=flat-square&label=tests&logo=github)](https://github.com/siberfx/laravel-bunq/actions/workflows/tests.yml)
 [![Cashier Compatible](https://img.shields.io/badge/Cashier-compatible-635BFF?style=flat-square)](#cashier-compatibility)
 [![bunq SDK](https://img.shields.io/badge/bunq%20SDK-1.28-00C1A1?style=flat-square)](https://github.com/bunq/sdk_php)
-[![License](https://img.shields.io/packagist/l/siberfx/laravel-bunq.svg?style=flat-square)](LICENSE)
+[![License](https://img.shields.io/packagist/l/siberfx/laravel-bunq.svg?style=flat-square&v=2)](LICENSE)
 
 A **bunq payment gateway for Laravel 13+**. Request money from customers, pay out to bank accounts, and track every payment in your database. Status changes arrive through bunq webhooks and are published as Laravel events.
 
